@@ -8,6 +8,7 @@ const TodoList = props => {
                 <Todo 
                 todo={todo.task}
                 key={todo.id}
+                toggleCompleted={props.toggleCompleted}
                 />
             )
 

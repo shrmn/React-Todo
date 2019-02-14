@@ -16,11 +16,27 @@ class App extends React.Component {
       this.setState({
         todos : [
           ...this.state.todos,
-          { task : this.state.inputText, id: Date.now(), completed: false}
-        ],
+          { task : this.state.inputText, 
+            id: Date.now(), 
+            completed: false
+          }
+        ],        
         inputText: ""
-      })
+      })      
     }
+
+    toggleCompleted = id => {
+      const newTodo = [...this.state.todos];
+      newTodo.map(todo => {
+        if (todo.id === id) {
+          todo.completed = !todo.completed;
+        }
+      });
+
+      this.setState ({
+        todos: newTodo
+      });
+    };
 
     handleChanges = e => {
       this.setState({
@@ -29,17 +45,19 @@ class App extends React.Component {
     };
 
   render() {
+    console.log(this.state.todos.map(e => e.completed));
     return (
       <div>
         <h2>Todo App!</h2>
         <TodoList 
         todos={this.state.todos}
+        toggleCompleted={this.toggleCompleted}
         />
         <TodoForm 
         inputText={this.state.inputText}
         handleChanges={this.handleChanges}
         addTask={this.addTask}
-        />
+        />        
       </div>
     );
   }
