@@ -26,7 +26,6 @@ class App extends React.Component {
     }
 
     toggleCompleted = itemId => {
-      console.log(itemId);
       this.setState({
         todos: this.state.todos.map(item => {
           if (itemId === item.id) {
@@ -37,8 +36,15 @@ class App extends React.Component {
           }
           return item;
         })
-      })
-    }    
+      });
+    };
+
+    clearCompleted = e => {
+      e.preventDefault();
+      this.setState({
+        todos: this.state.todos.filter(item => !item.completed)
+      });
+    };
 
     handleChanges = e => {
       this.setState({
@@ -59,6 +65,7 @@ class App extends React.Component {
           inputText={this.state.inputText}
           handleChanges={this.handleChanges}
           addTask={this.addTask}
+          clearCompleted={this.clearCompleted}
           />        
         </div>
         <pre>this.state = {JSON.stringify(this.state, null, 2)}</pre>
