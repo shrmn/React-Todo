@@ -3,10 +3,10 @@ import React from 'react';
 const Todo = props => {
     return (
         <li
-            className={props.completed ? 'completed' : ''}
-            onClick={() => props.toggleCompleted(props.id)}
+            className={props.todo.completed ? 'task completed' : 'task'}
+            onClick={() => props.toggleCompleted(props.todo.id)}
         >
-            {props.todo}
+            {props.todo.task}
         </li>
     )
 }
