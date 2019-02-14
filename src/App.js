@@ -22,21 +22,23 @@ class App extends React.Component {
           }
         ],        
         inputText: ""
-      })      
+      })
     }
 
-    toggleCompleted = id => {
-      const newTodo = [...this.state.todos];
-      newTodo.map(todo => {
-        if (todo.id === id) {
-          todo.completed = !todo.completed;
-        }
-      });
-
-      this.setState ({
-        todos: newTodo
-      });
-    };
+    toggleCompleted = itemId => {
+      console.log(itemId);
+      this.setState({
+        todos: this.state.todos.map(item => {
+          if (itemId === item.id) {
+            return {
+              ...item,
+              completed: !item.completed
+          };
+          }
+          return item;
+        })
+      })
+    }    
 
     handleChanges = e => {
       this.setState({
@@ -44,21 +46,23 @@ class App extends React.Component {
       });      
     };
 
-  render() {
-    console.log(this.state.todos.map(e => e.completed));
+  render() {  
     return (
-      <div>
-        <h2>Todo App!</h2>
-        <TodoList 
-        todos={this.state.todos}
-        toggleCompleted={this.toggleCompleted}
-        />
-        <TodoForm 
-        inputText={this.state.inputText}
-        handleChanges={this.handleChanges}
-        addTask={this.addTask}
-        />        
-      </div>
+      <React.Fragment>
+        <div>
+          <h2>Todo App!</h2>
+          <TodoList 
+          todos={this.state.todos}
+          toggleCompleted={this.toggleCompleted}
+          />
+          <TodoForm 
+          inputText={this.state.inputText}
+          handleChanges={this.handleChanges}
+          addTask={this.addTask}
+          />        
+        </div>
+        <pre>this.state = {JSON.stringify(this.state, null, 2)}</pre>
+      </React.Fragment>
     );
   }
 }
