@@ -68,7 +68,7 @@ class App extends React.Component {
           clearCompleted={this.clearCompleted}
           />        
         </div>
-        <pre>this.state = {JSON.stringify(this.state, null, 2)}</pre>
+        {/* <pre>this.state = {JSON.stringify(this.state, null, 2)}</pre> */}
       </React.Fragment>
     );
   }
