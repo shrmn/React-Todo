@@ -16,11 +16,35 @@ class App extends React.Component {
       this.setState({
         todos : [
           ...this.state.todos,
-          { task : this.state.inputText, id: Date.now(), completed: false}
-        ],
+          { task : this.state.inputText, 
+            id: Date.now(), 
+            completed: false
+          }
+        ],        
         inputText: ""
       })
     }
+
+    toggleCompleted = itemId => {
+      this.setState({
+        todos: this.state.todos.map(item => {
+          if (itemId === item.id) {
+            return {
+              ...item,
+              completed: !item.completed
+          };
+          }
+          return item;
+        })
+      });
+    };
+
+    clearCompleted = e => {
+      e.preventDefault();
+      this.setState({
+        todos: this.state.todos.filter(item => !item.completed)
+      });
+    };
 
     handleChanges = e => {
       this.setState({
@@ -28,19 +52,24 @@ class App extends React.Component {
       });      
     };
 
-  render() {
+  render() {  
     return (
-      <div>
-        <h2>Todo App!</h2>
-        <TodoList 
-        todos={this.state.todos}
-        />
-        <TodoForm 
-        inputText={this.state.inputText}
-        handleChanges={this.handleChanges}
-        addTask={this.addTask}
-        />
-      </div>
+      <React.Fragment>
+        <div>
+          <h2>Todo App!</h2>
+          <TodoList 
+          todos={this.state.todos}
+          toggleCompleted={this.toggleCompleted}
+          />
+          <TodoForm 
+          inputText={this.state.inputText}
+          handleChanges={this.handleChanges}
+          addTask={this.addTask}
+          clearCompleted={this.clearCompleted}
+          />        
+        </div>
+        {/* <pre>this.state = {JSON.stringify(this.state, null, 2)}</pre> */}
+      </React.Fragment>
     );
   }
 }
